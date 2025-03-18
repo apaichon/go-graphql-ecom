@@ -1,0 +1,114 @@
+### GraphQL Test Queries and Mutations
+
+### Get all users
+POST http://localhost:8081/graphql
+Content-Type: application/json
+
+{
+  "query": "{ users { id name email created_at } }"
+}
+
+### Get user by ID
+POST http://localhost:8081/graphql
+Content-Type: application/json
+
+{
+  "query": "{ user(id: 1) { id name email created_at } }"
+}
+
+### Get all products
+POST http://localhost:8081/graphql
+Content-Type: application/json
+
+{
+  "query": "{ products { id name description price inventory created_at } }"
+}
+
+### Get product by ID
+POST http://localhost:8081/graphql
+Content-Type: application/json
+
+{
+  "query": "{ product(id: 1) { id name description price inventory created_at } }"
+}
+
+### Get all orders with items and products
+POST http://localhost:8081/graphql
+Content-Type: application/json
+
+{
+  "query": "{ orders { id user_id status total created_at items { id product_id quantity price product { name price } } } }"
+}
+
+### Get order by ID with items and products
+POST http://localhost:8081/graphql
+Content-Type: application/json
+
+{
+  "query": "{ order(id: 1) { id user_id status total created_at items { id product_id quantity price product { name price } } } }"
+}
+
+### Create a new user
+POST http://localhost:8081/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation { createUser(name: \"John Doe\", email: \"john@example.com\", password: \"password123\") { id name email created_at } }"
+}
+
+### Create a new product
+POST http://localhost:8081/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation { createProduct(name: \"Smartphone\", description: \"Latest model smartphone\", price: 999.99, inventory: 50) { id name description price inventory created_at } }"
+}
+
+### Create a new order
+POST http://localhost:8081/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation { createOrder(user_id: 1, status: \"pending\", total: 999.99) { id user_id status total created_at } }"
+}
+
+### Add an item to an order
+POST http://localhost:8081/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation { addOrderItem(order_id: 1, product_id: 1, quantity: 2, price: 999.99) { id order_id product_id quantity price product { name } } }"
+}
+
+### Update order status
+POST http://localhost:8081/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation { updateOrderStatus(id: 1, status: \"shipped\") { id status } }"
+}
+
+### Complex query with variables
+POST http://localhost:8081/graphql
+Content-Type: application/json
+
+{
+  "query": "query GetOrderDetails($id: Int!) { order(id: $id) { id user_id status total created_at items { id quantity price product { name description price } } } }",
+  "variables": {
+    "id": 1
+  }
+}
+
+### Complex mutation with variables
+POST http://localhost:8081/graphql
+Content-Type: application/json
+
+{
+  "query": "mutation CreateNewProduct($name: String!, $description: String, $price: Float!, $inventory: Int!) { createProduct(name: $name, description: $description, price: $price, inventory: $inventory) { id name description price inventory } }",
+  "variables": {
+    "name": "Wireless Earbuds",
+    "description": "High-quality wireless earbuds with noise cancellation",
+    "price": 149.99,
+    "inventory": 100
+  }
+}

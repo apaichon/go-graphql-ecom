@@ -1,0 +1,81 @@
+### Variables
+@baseUrl = http://localhost:4001
+@apiUrl = {{baseUrl}}/api
+
+### Home page
+GET {{baseUrl}}
+
+### User API Tests
+
+# Get all users
+GET {{apiUrl}}/users
+Accept: application/json
+
+### Get user by ID
+GET {{apiUrl}}/users/1
+Accept: application/json
+
+# Create a new user
+### Create a new user
+POST {{apiUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+
+### Product API Tests
+
+# Get all products
+GET {{apiUrl}}/products
+Accept: application/json
+
+### Get product by ID
+GET {{apiUrl}}/products/1
+Accept: application/json
+
+### Create a new product
+POST {{apiUrl}}/products
+Content-Type: application/json
+
+{
+  "name": "Smartphone",
+  "description": "Latest model smartphone with high-end features",
+  "price": 999.99,
+  "inventory": 50
+}
+
+### Order API Tests
+
+# Get orders by user ID
+GET {{apiUrl}}/orders/user/1
+Accept: application/json
+
+# Get order by ID
+### Get order by ID
+GET {{apiUrl}}/orders/1
+Accept: application/json
+
+# Create a new order
+### Create a new order
+POST {{apiUrl}}/orders
+Content-Type: application/json
+
+{
+  "user_id": 1,
+  "status": "pending",
+  "total": 999.99
+}
+
+### Add item to an order
+POST {{apiUrl}}/orders/1/items
+Content-Type: application/json
+
+{
+  "product_id": 1,
+  "quantity": 2,
+  "price": 999.99
+}
+
